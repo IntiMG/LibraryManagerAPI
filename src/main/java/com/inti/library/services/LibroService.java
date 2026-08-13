@@ -9,6 +9,8 @@ import com.inti.library.models.Categoria;
 import com.inti.library.models.Libro;
 import com.inti.library.repositories.LibroRepository;
 
+import tools.jackson.databind.ObjectMapper;
+
 @Service
 public class LibroService {
     private final LibroRepository libroRepository;
@@ -64,10 +66,13 @@ public class LibroService {
                         libroExistente.setEstado((String) valor);
                         break;
                     case "categoria":
-                        libroExistente.setCategoria((Categoria) valor);
+                        ObjectMapper mapper = new ObjectMapper();
+                        Categoria categoriaConvertida = mapper.convertValue(valor, Categoria.class);
+                        libroExistente.setCategoria(categoriaConvertida);
+                        break;
                 }
             });
-            
+
             return guardarLibro(libroExistente);
         }
 
