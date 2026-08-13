@@ -1,6 +1,7 @@
 package com.inti.library.services;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,38 @@ public class CategoriaService {
 
     public void eliminarCategoria(Long id) {
         categoriaRepository.deleteById(id);
+    }
+
+    public Categoria actualizarCategoria(Long id, Categoria detallesCategoria) {
+        Categoria categoriaExistente = obtenerPorId(id);
+
+        if (categoriaExistente != null) {
+            categoriaExistente.setNombre(detallesCategoria.getNombre());
+            categoriaExistente.setDescripcion(detallesCategoria.getDescripcion());
+            return guardarCategoria(categoriaExistente);
+        }
+
+        return null;
+    }
+
+    public Categoria actualizarParcialCategoria(Long id, Map<String, Object> campos) {
+        Categoria categoriaExistente = obtenerPorId(id);
+
+        if (categoriaExistente != null) {
+            campos.forEach((clave, valor) -> {
+                switch (clave) {
+                    case "nombre":
+                        categoriaExistente.setNombre((String) valor);
+                        break;
+                    case "descripcion":
+                        categoriaExistente.setDescripcion((String) valor);
+                        break;
+                }
+            });
+
+            return guardarCategoria(categoriaExistente);
+        }
+
+        return null;
     }
 }
