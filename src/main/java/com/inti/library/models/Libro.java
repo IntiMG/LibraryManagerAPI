@@ -36,9 +36,9 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(String titulo, String autor, String estado) {
+    public Libro(String titulo, String autor, Categoria categoria) {
         this.titulo = titulo;
         this.autor = autor;
-        this.estado = estado;
+        this.categoria = categoria;
     }
 }
