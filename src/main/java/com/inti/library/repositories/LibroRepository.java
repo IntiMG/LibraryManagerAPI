@@ -1,4 +1,4 @@
-package com.inti.library.repository;
+package com.inti.library.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
